@@ -288,6 +288,8 @@ function saveAudit(request,auditModel){
   auditModel.ciserviceName="Lex";
   auditModel.userName = request.body.input.userId;
   auditModel.lastUpdatedDate = new Date();
+  console.log(auditid);
+  console.log('printing auditid');
 
   audit.update({_id : auditid}, {$set:auditModel},  {upsert: true}, function(err,task){
     if (err){
