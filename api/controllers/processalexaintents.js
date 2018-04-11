@@ -687,8 +687,7 @@ console.log(typeof(otpGen));
           cifid: cifofuser
       }).then((docs) => {
           console.log('Data got fetched from the database ' + docs.length);
-          console.log(JSON.stringify(CustomerAuthDetails, undefined, 2));
-
+          
           if (docs.length !== 0) {
 
               cnt = cnt + 1;
