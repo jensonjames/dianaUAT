@@ -1132,7 +1132,7 @@ console.log(typeof(otpGen));
 
   function handlegenotpIntent(request,  resp,auditModel) {
       console.log('Start handlegenotpIntent');
-      var sessionAttributes = request.body.input.sessionAttributes;
+      var sessionAttributes = request.body.input.session.attributes;
 //      var requestAttributes = request.body.input.requestAttributes;
 
       console.log(`Session Attr:${JSON.stringify(sessionAttributes)}`);
