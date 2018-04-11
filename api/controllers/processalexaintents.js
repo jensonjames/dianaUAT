@@ -81,12 +81,12 @@ var intentName =intentNamefuntion(input);
       console.log(`You Intent is :${intentName}`);
       var input = request.body.input;
       console.log("input :>>>>>>>",input);
-	  console.log("input session attributes:>>>>>>>",input.session.attributes.auditid.id);
+	  console.log("input session attributes:>>>>>>>",input.session.attributes);
       
-      var requestAttributes = input.sessiom.attributes;
-      console.log("requestAttributes :>>>>>>>",requestAttributes.auditid.id);
+      var requestAttributes = input.session.attributes;
+      //console.log("requestAttributes :>>>>>>>",requestAttributes.auditid.id);
 
-      var auditid = requestAttributes.auditid;
+      var auditid = requestAttributes.auditid.id;
       var auditModel;
       audit.find({_id : auditid},function(err,data){
           auditModel = data[0];
