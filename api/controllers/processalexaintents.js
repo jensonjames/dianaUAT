@@ -84,9 +84,9 @@ var intentName =intentNamefuntion(input);
 	  console.log("input session attributes:>>>>>>>",input.session.attributes);
       
       var requestAttributes = input.sessiom.attributes;
-      console.log("requestAttributes :>>>>>>>",requestAttributes);
+      console.log("requestAttributes :>>>>>>>",requestAttributes.auditid.id);
 
-      var auditid = request.body.input.requestAttributes.auditid;
+      var auditid = requestAttributes.auditid;
       var auditModel;
       audit.find({_id : auditid},function(err,data){
           auditModel = data[0];
