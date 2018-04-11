@@ -16,6 +16,7 @@ var {CustomerAuthDetails} = require('../models/Customer_auth');
 exports.handleintents = function(req, resp) {
   console.log("Process Intent Start");
   console.log(req.body);
+   console.log('req body printed');
       var request = req;
 
       console.log("request>>>>>",request);
@@ -69,6 +70,7 @@ console.log("Inside IF");
   }
 }
 
+console.log(input);
 console.log(intentNamefuntion(input));
 
 var intentName =intentNamefuntion(input);
