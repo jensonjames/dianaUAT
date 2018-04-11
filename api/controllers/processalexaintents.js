@@ -256,6 +256,7 @@ console.log("request>>>>>");
                 // request.sessionAttributes.coreusername = `${nameofuser}`;
                 request.body.input.session.attributes.nameofuser  =`${nameofuser}`;
 				globalval.cifid = `${cifofuser}`;
+				globalval.nameofuser = `${nameofuser}`;
 
                 // console.log(request.sessionAttributes.coreusername);
 
@@ -1149,7 +1150,7 @@ console.log(typeof(otpGen));
      // console.log(typeof(request.body.input.sessionAttributes));
      // console.log(typeof(request.body.input.requestAttributes));
     //  var cifofuser= 123452 ;
-  var cifofuser= `${sessionAttributes.cifidd}` ;
+  var cifofuser= globalval.cifid ;
 
   console.log("cifofuser>>>>",cifofuser);
 
@@ -1176,8 +1177,7 @@ console.log(typeof(otpGen));
           cifid: cifofuser
       }).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
-              console.log(JSON.stringify(CustomerAuthDetails, undefined, 2));
-              var userFirstName = request.body.input.sessionAttributes.userFirstName;
+              var userFirstName = globalval.nameofuser;
               //var userFirstName = "Anitha";
               console.log(`userFirstName:${userFirstName}`);
 
