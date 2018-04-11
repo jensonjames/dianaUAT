@@ -228,6 +228,8 @@ console.log("request>>>>>",request);
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
                 saveAudit(request,auditModel);
+				console.log("after saving");
+                
                 resp.json(responeData);
 
                 /////////////////
@@ -285,6 +287,7 @@ var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
 saveAudit(request,auditModel);
+
 resp.json(responeData);
 
 }
