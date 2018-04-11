@@ -305,10 +305,10 @@ resp.json(responeData);
 
 function saveAudit(request,auditModel){
   console.log(" start saving data");
-  var auditid = request.body.input.requestAttributes.auditid;
+  var auditid = request.body.input.session.attributes.auditid;
   auditModel.requestData=request.body;
-  auditModel.ciserviceName="Lex";
-  auditModel.userName = request.body.input.userId;
+  auditModel.ciserviceName="Alexa";
+ // auditModel.userName = request.body.input.userId;
   auditModel.lastUpdatedDate = new Date();
 
   audit.update({_id : auditid}, {$set:auditModel},  {upsert: true}, function(err,task){
