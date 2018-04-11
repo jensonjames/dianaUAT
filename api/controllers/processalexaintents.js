@@ -90,6 +90,7 @@ var intentName =intentNamefuntion(input);
       var auditModel;
       audit.find({_id : auditid},function(err,data){
           auditModel = data[0];
+		  console.log(auditModel);
         switch (intentName) {
           //// required
 
@@ -208,7 +209,7 @@ console.log("request>>>>>",request);
                  //   // request.sessionAttributes.custuserid=request.body.input.userId;
                  //   //
                  //
-                   var custuserid1=request.body.input.sessionAttributes.custuserid;
+                   var custuserid1=123450;
                   //console.log(`sessionAttributes:${request.body.input.sessionAttributes.userFirstName}`);
 
                 //  console.log(`sessionAttributes:${request.sessionAttributes.custuserid}`);
