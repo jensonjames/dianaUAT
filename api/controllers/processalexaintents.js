@@ -89,6 +89,10 @@ var intentName =intentNamefuntion(input);
       var auditid = requestAttributes.auditid.id;
       var auditModel;
       audit.find({_id : auditid},function(err,data){
+		  if(err){
+			  console.log('Mongodb find error');
+			  console.log(err);
+		  }
           auditModel = data[0];
 		  console.log(auditModel);
         switch (intentName) {
