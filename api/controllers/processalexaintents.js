@@ -1200,16 +1200,15 @@ resp.json(responeData);
                 }).then((doc) => {
                     console.log('in for balance');
                     var nameofuser = `${doc[0].customer_Name}`;
-                    request.body.input.sessionAttributes.coreusername = `${nameofuser}`;
-                    console.log(request.body.input.sessionAttributes.coreusername);
-
+                    //request.body.input.sessionAttributes.coreusername = `${nameofuser}`;
+                    
                   console.log(docs);
                   console.log(docs[0].cifid);
                   console.log('in for otp');
                   var otpGen = random(999999, 111111);
                   console.log(otpGen);
 
-                  request.body.input.sessionAttributes.otp = `${otpGen}`;
+                  request.body.input.session.attributes.otp = `${otpGen}`;
                   console.log(docs);
 
                   var mobileofuser = `${docs[0].RegisterMobile}`;
@@ -1243,7 +1242,7 @@ resp.json(responeData);
                   //               console.log("updated successfully");
 ///////////////
 console.log("Inside e block");
-var val = `Hi ${request.body.input.sessionAttributes.coreusername},${msg1} otp has shared please type the same..`
+var val = `Hi ${nameofuser}, OTP has been shared to the Registered Mobile Number. Please confirm the OTP.`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
