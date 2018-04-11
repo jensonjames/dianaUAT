@@ -22,23 +22,23 @@ exports.handleintents = function(req, resp) {
 //console.log("Reques.context>>>>>",request.body.input.context);
 //console.log("Reques.request>>>>>",request.body.input.request);
 
-      request.body.input.sessionAttributes = request.body.input.sessionAttributes === null ? {} : request.body.input.sessionAttributes;
+    //  request.body.input.sessionAttributes = request.body.input.sessionAttributes === null ? {} : request.body.input.sessionAttributes;
 
-      request.body.input.sessionAttributes= {cifidd :123450};
-      request.body.input.sessionAttributes.userFirstName="Aditya";
-     console.log(typeof(request.body.input.sessionAttributes));
-     console.log(typeof(request.body.input.requestAttributes));
-     request.body.input.sessionAttributes.custuserid=2157056904312201;
-     request.body.input.sessionAttributes.otp=111111;
+  //    request.body.input.sessionAttributes= {cifidd :123450};
+  //    request.body.input.sessionAttributes.userFirstName="Aditya";
+  //   console.log(typeof(request.body.input.sessionAttributes));
+  //   console.log(typeof(request.body.input.requestAttributes));
+  //   request.body.input.sessionAttributes.custuserid=2157056904312201;
+  //   request.body.input.sessionAttributes.otp=111111;
      // request.body.input.sessionAttributes= {cifidd :123452};
      // request.body.input.sessionAttributes.userFirstName="Anitha";
 
-request.body.input.requestAttributes= {channelName :"twitter"};
-request.body.input.requestAttributes.auditid="5acaf13f9628f025a81de981";
-
+//request.body.input.requestAttributes= {channelName :"twitter"};
+//request.body.input.requestAttributes.auditid="5acaf13f9628f025a81de981";
+//
 //event.session.attributes = {auditid : '123', channelid : 'Alexa'};
 
-   console.log(request.body.input.sessionAttributes.userFirstName);
+ //  console.log(request.body.input.sessionAttributes.userFirstName);
 
      // request.sessionAttributes.custuserid=request.body.input.userId;
      //
