@@ -14,7 +14,7 @@ var {CustomerAccDetails} = require('../models/customer_Acc');
 var {CustomerAuthDetails} = require('../models/Customer_auth');
 
 
-globalval ={};
+var globalval ={};
 
 exports.handleintents = function(req, resp) {
   console.log("Process Intent Start");
