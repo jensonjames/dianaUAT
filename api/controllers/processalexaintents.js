@@ -81,7 +81,7 @@ var intentName =intentNamefuntion(input);
       console.log(`You Intent is :${intentName}`);
       var input = request.body.input;
       console.log("input :>>>>>>>",input);
-      var requestAttributes = request.body.input.requestAttributes;
+      var requestAttributes = input.sessiom.attributes;
       console.log("requestAttributes :>>>>>>>",requestAttributes);
 
       var auditid = request.body.input.requestAttributes.auditid;
