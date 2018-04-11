@@ -531,8 +531,8 @@ function saveAudit(request,auditModel){
   function handleGetCustAuthIntent(request, resp,auditModel) {
       console.log('Start handleGetCustAuthIntent');
       var cnt = 0;
-      var otpGen = request.body.input.sessionAttributes.otp;
-
+      //var otpGen = request.body.input.sessionAttributes.otp;
+	var otpGen = 111111;
       //var faceid = `${request.sessionAttributes.fbid1}`;
       //var faceid = `abcd@gmail.com`;
       //console.log('facebook id is ' + faceid);
@@ -553,7 +553,7 @@ function saveAudit(request,auditModel){
 
   //var cifofuser= `${request.body.input.sessionAttributes.cifidd}` ;
 
-    var cifofuser= 123450 ;
+    var cifofuser= globalval.cifid ;
     console.log(cifofuser);
 console.log(typeof(parseInt(otp11)));
 console.log(typeof(otpGen));
