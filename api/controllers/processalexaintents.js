@@ -19,8 +19,8 @@ exports.handleintents = function(req, resp) {
       var request = req;
 
       console.log("request>>>>>",request);
-console.log("Reques.context>>>>>",request.body.input.context);
-console.log("Reques.request>>>>>",request.body.input.request);
+//console.log("Reques.context>>>>>",request.body.input.context);
+//console.log("Reques.request>>>>>",request.body.input.request);
 
       request.body.input.sessionAttributes = request.body.input.sessionAttributes === null ? {} : request.body.input.sessionAttributes;
 
