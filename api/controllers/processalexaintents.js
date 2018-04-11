@@ -1144,7 +1144,7 @@ console.log(typeof(otpGen));
      // console.log(typeof(request.body.input.sessionAttributes));
      // console.log(typeof(request.body.input.requestAttributes));
     //  var cifofuser= 123452 ;
-  var cifofuser= `${request.body.input.sessionAttributes.cifidd}` ;
+  var cifofuser= `${sessionAttributes.cifidd}` ;
 
   console.log("cifofuser>>>>",cifofuser);
 
