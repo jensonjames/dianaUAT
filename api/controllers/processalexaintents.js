@@ -13,6 +13,9 @@ channel = mongoose.model('channel');
 var {CustomerAccDetails} = require('../models/customer_Acc');
 var {CustomerAuthDetails} = require('../models/Customer_auth');
 
+
+globalval ={};
+
 exports.handleintents = function(req, resp) {
   console.log("Process Intent Start");
   console.log(req.body);
@@ -252,6 +255,7 @@ console.log("request>>>>>");
                  request.body.input.session.attributes.cifidd =`${cifofuser}` ;
                 // request.sessionAttributes.coreusername = `${nameofuser}`;
                 request.body.input.session.attributes.nameofuser  =`${nameofuser}`;
+				globalval.cifid = `${cifofuser}`;
 
                 // console.log(request.sessionAttributes.coreusername);
 
@@ -1136,6 +1140,7 @@ console.log(typeof(otpGen));
 //      var requestAttributes = request.body.input.requestAttributes;
 
       console.log(`Session Attr:${JSON.stringify(sessionAttributes)}`);
+	  console.log(globalval.cifid);
       var msg1 = date < 12 ? 'Good Morning' : date < 18 ? 'Good Afternoon' : 'Good Night';
       var msg = `Your Registration has been added successfully`;
       console.log('connect to Mongo Db server');
