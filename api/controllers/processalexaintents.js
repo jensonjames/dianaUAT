@@ -216,7 +216,7 @@ console.log("request>>>>>",request);
                   console.log(custuserid1);
 
       CustomerAccDetails.find({
-          userid:custuserid1
+          cifid:custuserid1
       }).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
               console.log(JSON.stringify(CustomerAuthDetails, undefined, 2));
