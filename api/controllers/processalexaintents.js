@@ -80,7 +80,8 @@ var intentName =intentNamefuntion(input);
       //var intentName = request.body.input.currentIntent.name;
       console.log(`You Intent is :${intentName}`);
       var input = request.body.input;
-      console.log("input :>>>>>>>",input);
+      //console.log("input :>>>>>>>",input);
+	  console.log("input :>>>>>>>");
 	  console.log("input session attributes:>>>>>>>",input.session.attributes);
       
       var requestAttributes = input.session.attributes;
@@ -188,7 +189,8 @@ var intentName =intentNamefuntion(input);
 
 function handleGreetIntent(request, resp,auditModel) {
       console.log('Start handleGreetIntent');
-console.log("request>>>>>",request);
+//console.log("request>>>>>",request);
+console.log("request>>>>>");
       var msg1 = date < 12 ? 'Good Morning' : date < 18 ? 'Good Afternoon' : 'Good Night';
       console.log('connect to Mongo Db server');
 // console.log(typeof(request.body.input.sessionAttributes));
@@ -223,9 +225,9 @@ console.log("request>>>>>",request);
           cifid:custuserid1
       }).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
-              console.log(JSON.stringify(CustomerAuthDetails, undefined, 2));
-              var userFirstName = request.body.input.sessionAttributes.userFirstName;
-              //var userFirstName = "Aditya";
+              //console.log(JSON.stringify(CustomerAuthDetails, undefined, 2));
+              //var userFirstName = request.body.input.sessionAttributes.userFirstName;
+              var userFirstName = "Aditya";
 
               console.log(`userFirstName:${userFirstName}`);
 
