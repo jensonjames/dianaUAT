@@ -278,7 +278,9 @@ console.log("request>>>>>");
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
                 saveAudit(request,auditModel);
-                resp.json(responeData);
+				resp=val;
+				resp;
+                //resp.json(responeData);
 ////////////////
                                       }},
                                       (e) => {
