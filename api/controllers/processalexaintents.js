@@ -264,16 +264,13 @@ console.log("request>>>>>");
                 console.log("Inside else block");
               //  var val = `Hi ${request.body.input.session.attributes.nameofuser} ,${msg1} You are already registered for Diana Chat Banking.I am here to help you on your Accounts services and other Banking information from ABC Bank.Please type in the following for me to understand the nature of your query. Type Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions.`
 				var val = {
-  "version": "1.0",
-  "response": {
     "outputSpeech": {"type":"PlainText","text":"Text to speak back to the user."},
     "card": {
       "type": "Simple",
       "title": "Example of the Card Title",
       "content": "Example of card content. This card has just plain text content.\nThe content is formatted with line breaks to improve readability."
     }
-  }
-};
+  };
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
