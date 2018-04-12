@@ -276,8 +276,8 @@ console.log("request>>>>>");
                 console.log("auditModel>>",auditModel);
                 saveAudit(request,auditModel);
 				//resp=val;
-				console.log(resp);
-				console.log(resp.json(val));
+				//console.log(resp);
+				//console.log(resp(val));
 				resp.json(val);
                 //resp.json(responeData);
 ////////////////
