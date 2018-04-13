@@ -723,6 +723,8 @@ console.log(typeof(otpGen));
                   var balofuser = `${doc[0].AccoutBal}`;
                   var balofuser2 = `${doc[1].AccoutBal}`;
                   var accountNumber = `${doc[0].accounts}`;
+				  console.log('length of account number');
+				  console.log(accountNumber.substring(accountNumber.length - 4 , accountNumber.length));
                   accountNumber = accountNumber.replace(accountNumber.substring(3, 4), "*****");
                   var accountNumber2 = `${doc[1].accounts}`;
                   accountNumber2 = accountNumber2.replace(accountNumber2.substring(3, 4), "*****");
