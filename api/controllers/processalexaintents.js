@@ -778,7 +778,7 @@ console.log(typeof(otpGen));
               //                    resp.json(responeData);
               //    } else {
                                   console.log("Inside if block");
-                                  var val =  `${salofuser} ${nameofuser},Your Balance in the ${accounttype} account ${accountNumber} is ${balofuser} ${accountcurrency}.Your Balance in the ${accounttype2} account ${accountNumber2} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
+                                  var val =  `${salofuser} ${nameofuser},Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Your Balance in the ${accounttype2} account  ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -873,7 +873,7 @@ console.log(typeof(otpGen));
                       console.log(balofuser);
                       console.log(`${doc[0].AccountBal}`);
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ${accountNumber} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -883,7 +883,7 @@ console.log(typeof(otpGen));
                  } else if (`${accounttype2}` == 'saving') {
                       console.log('got rec' + doc);
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ${accountNumber2} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -997,7 +997,7 @@ console.log(typeof(otpGen));
                       console.log(`${doc[0].AccountBal}`);
                   /////
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ${accountNumber} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -1007,7 +1007,7 @@ console.log(typeof(otpGen));
                   }  else if (`${accounttype2}` == 'current') {
                       console.log('got rec' + doc);
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ${accountNumber2} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
