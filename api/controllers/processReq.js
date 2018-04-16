@@ -63,26 +63,82 @@ registerrequest(req,res);
 //
 //};
 
+//function registerrequest(req,res) {
+//
+//  console.log(JSON.stringify(req.body));
+//  var token = req.body.verify_token;
+//  console.log(token);
+//
+//  channel.find({verificationToken : "hub.verify_token"}, function(err, ctask) {
+//    if (err){
+//      res.send(err);
+//    }else{
+//		console.log(req.query["hub.verify_token"]);
+//      console.log('checking token');
+//      if (ctask.length ===0){
+//          res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+//      }else{
+//      console.log('is verified');
+//
+//        if( ctask[0].enabled === 1){
+//            console.log('is enabled ' +ctask[0].enabled);
+//          req.body.channel = ctask[0];
+//          var count = req.body.channel.reqCount + 1;
+//        channel.update({name:req.body.channel.name}, {$set: { reqCount: count }},  {upsert: true}, function(err,task){
+//          if (err){
+//            console.log('Could not update channel req count'+ err);
+//          }
+//          else{
+//            console.log('req count incremented  ' + task);
+//            var auditdata = {channelName : req.body.channel.name, requestDate : new Date()} ;
+//            var auditinfo = new audit(auditdata);
+//            auditinfo.save(function(err, task) {
+//              if (err){
+//                console.log('Audit information could not be saved' + err);
+//                res.json({message :'Audit information could not be saved. Not forwarding to CI Service'});
+//              }else{
+//              console.log(task);
+//              req.body.auditid = task._id;
+//              console.log(req.body.auditid);
+//
+//
+//              //var answersinfo = new answers(answersdata);
+//
+//
+//              handlelexrequest(req, res);
+//            }
+//
+//            });
+//          }
+//        });
+//
+//
+//
+//
+//
+//        }else{
+//          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
+//        }
+//      }
+//
+//    };
+//
+//});
+//
+//};
+//
+
 function registerrequest(req,res) {
 
   console.log(JSON.stringify(req.body));
   var token = req.body.verify_token;
   console.log(token);
 
-  channel.find({verificationToken : "hub.verify_token"}, function(err, ctask) {
-    if (err){
-      res.send(err);
-    }else{
-		console.log(req.query["hub.verify_token"]);
-      console.log('checking token');
-      if (ctask.length ===0){
-          res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
-      }else{
+
+
       console.log('is verified');
 
-        if( ctask[0].enabled === 1){
-            console.log('is enabled ' +ctask[0].enabled);
-          req.body.channel = ctask[0];
+
           var count = req.body.channel.reqCount + 1;
         channel.update({name:req.body.channel.name}, {$set: { reqCount: count }},  {upsert: true}, function(err,task){
           if (err){
@@ -116,14 +172,10 @@ function registerrequest(req,res) {
 
 
 
-        }else{
-          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
-        }
-      }
+    
+    
 
-    };
 
-});
 
 };
 
