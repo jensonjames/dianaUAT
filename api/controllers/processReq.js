@@ -65,7 +65,7 @@ registerrequest(req,res);
 
 function registerrequest(req,res) {
 
-  console.log(JSON.stringify(req.body));
+  console.log(JSON.stringify(req.body.object));
   var token = req.body.verify_token;
   console.log(token);
 
@@ -132,7 +132,7 @@ function registerrequest(req,res) {
 function handlelexrequest(req,res) {
 
   req.body.ciservicename = "Lex";
-  //console.log(req.body);
+  console.log(req.body);
   var val = req.body.input;
   var channelid = req.body.channel.name;
 
