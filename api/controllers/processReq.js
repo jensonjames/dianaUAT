@@ -69,10 +69,11 @@ function registerrequest(req,res) {
   var token = req.body.verify_token;
   console.log(token);
 
-  //channel.find({verificationToken : "hub.verify_token"}, function(err, ctask) {
-  //  if (err){
-  //    res.send(err);
-  //  }else{
+  channel.find({verificationToken : "hub.verify_token"}, function(err, ctask) {
+    if (err){
+      res.send(err);
+    }else{
+		console.log(req.query["hub.verify_token"]);
       console.log('checking token');
       if (ctask.length ===0){
           res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
@@ -120,9 +121,9 @@ function registerrequest(req,res) {
         }
       }
 
-//    };
-//
-//});
+    };
+
+});
 
 };
 
