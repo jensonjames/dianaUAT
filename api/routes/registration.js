@@ -21,7 +21,7 @@ module.exports = function(app) {
 
     app.route('/webhook')
       .post(processReq.handlerequest)
-      .get(processReq.handlegetrequest)
+    //  .get(processReq.handlegetrequest)
       //.post(todoList.register_a_channel_diag);
 	  
 	  

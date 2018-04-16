@@ -28,40 +28,40 @@ registerrequest(req,res);
 
 };
 
-exports.handlegetrequest = function(req, res) {
-  // if (req.query["hub.verify_token"] === process.env.VERIFICATION_TOKEN) {
-  //     console.log("Verified webhook");
-  //     res.status(200).send(req.query["hub.challenge"]);
-  // } else {
-  //     console.error("Verification failed. The tokens do not match.");
-  //     res.sendStatus(403);
-  // }
-
-  var token = req.body.token;
-  console.log(token);
-
-  channel.find({verificationToken : token}, function(err, ctask) {
-    if (err){
-      res.send(err);
-    }else{
-      if (ctask.length ===0){
-          //res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
-		  res.send(1391213325);
-      }else{
-        console.log(ctask[0].enabled);
-        if( ctask[0].enabled === 1){
-          res.status(200)
-        }else{
-          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
-        }
-      }
-
-    };
-
-});
-
-
-};
+//exports.handlegetrequest = function(req, res) {
+//  // if (req.query["hub.verify_token"] === process.env.VERIFICATION_TOKEN) {
+//  //     console.log("Verified webhook");
+//  //     res.status(200).send(req.query["hub.challenge"]);
+//  // } else {
+//  //     console.error("Verification failed. The tokens do not match.");
+//  //     res.sendStatus(403);
+//  // }
+//
+//  var token = req.body.token;
+//  console.log(token);
+//
+//  channel.find({verificationToken : token}, function(err, ctask) {
+//    if (err){
+//      res.send(err);
+//    }else{
+//      if (ctask.length ===0){
+//          //res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+//		  res.send("1391213325");
+//      }else{
+//        console.log(ctask[0].enabled);
+//        if( ctask[0].enabled === 1){
+//          res.status(200)
+//        }else{
+//          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
+//        }
+//      }
+//
+//    };
+//
+//});
+//
+//
+//};
 
 function registerrequest(req,res) {
 
