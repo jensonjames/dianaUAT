@@ -45,7 +45,8 @@ exports.handlegetrequest = function(req, res) {
       res.send(err);
     }else{
       if (ctask.length ===0){
-          res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+          //res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+		  res.send(1391213325);
       }else{
         console.log(ctask[0].enabled);
         if( ctask[0].enabled === 1){

@@ -39,7 +39,7 @@ exports.handlegetrequest = function(req, res) {
 
   var token = req.body.token;
   console.log(token);
-
+//get channel registration
   channel.find({verificationToken : token}, function(err, ctask) {
     if (err){
       res.send(err);
@@ -47,6 +47,8 @@ exports.handlegetrequest = function(req, res) {
       if (ctask.length ===0){
           res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
       }else{
+		  
+		//check if channel is enabled  
         console.log(ctask[0].enabled);
         if( ctask[0].enabled === 1){
           res.status(200)
@@ -67,7 +69,7 @@ function registerrequest(req,res) {
   console.log(JSON.stringify(req.body));
   var token = req.body.verify_token;
   console.log(token);
-
+//get channel registration
   channel.find({verificationToken : token}, function(err, ctask) {
     if (err){
       res.send(err);
@@ -77,7 +79,7 @@ function registerrequest(req,res) {
           res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
       }else{
       console.log('is verified');
-
+		//check if channel is enabled  
         if( ctask[0].enabled === 1){
             console.log('is enabled ' +ctask[0].enabled);
           req.body.channel = ctask[0];
@@ -102,8 +104,8 @@ function registerrequest(req,res) {
 
               //var answersinfo = new answers(answersdata);
 
-
-              handlelexrequest(req, res);
+				//make the DF request
+              handledfrequest(req, res);
             }
 
             });
@@ -125,9 +127,9 @@ function registerrequest(req,res) {
 
 };
 
-function handlelexrequest(req,res) {
+function handledfrequest(req,res) {
 
-  req.body.ciservicename = "Lex";
+  req.body.ciservicename = "GoogleDialogFlow";
   //console.log(req.body);
   var val = req.body.input;
   var channelid = req.body.channel.name;
@@ -196,7 +198,7 @@ function handlelexrequest(req,res) {
                  //console.log(opts);
 
 
-             ciservice.find({name : "Lex"}, function(err, task) {
+             ciservice.find({name : "GoogleDialogFlow"}, function(err, task) {
                if (err){
                  res.send(err);
                }else{
