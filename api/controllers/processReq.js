@@ -133,7 +133,8 @@ function handlelexrequest(req,res) {
 
   req.body.ciservicename = "Lex";
   console.log(req.body);
-  var val = req.body.input;
+  //var val = req.body.input;
+  var val = "Hi";
   var channelid = req.body.channel.name;
 
   var inputarray = val.split(' ');
