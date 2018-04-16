@@ -69,7 +69,7 @@ function registerrequest(req,res) {
   var token = req.body.verify_token;
   console.log(token);
 
-  channel.find({verificationToken : token}, function(err, ctask) {
+  channel.find({verificationToken : "hub.verify_token"}, function(err, ctask) {
     if (err){
       res.send(err);
     }else{
