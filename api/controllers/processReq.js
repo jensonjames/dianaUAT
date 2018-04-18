@@ -287,7 +287,8 @@ function handlelexrequest(req,res) {
                });
 
                //res.json({message : e.message})
-			   sendMessage('jenson', {text: "Hey"});
+			   var name = 'jenson';
+			   sendMessage(name, {text: "Hey"});
            });
            };
          });
