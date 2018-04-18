@@ -132,7 +132,7 @@ function registerrequest(req,res) {
 function handlelexrequest(req,res) {
 
   req.body.ciservicename = "Lex";
-  console.log(req);
+  //console.log(req);
   var val = req.body.input;
   //var val = "Hi";
   var channelid = req.body.channel.name;
