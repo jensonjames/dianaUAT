@@ -137,8 +137,8 @@ function handlelexrequest(req,res) {
   //var val = "Hi";
   var channelid = req.body.channel.name;
 
-  var inputarray = val.split(' ');
- //var inputarray = 'Hi';
+ // var inputarray = val.split(' ');
+ var inputarray = ['Hi'];
   console.log(inputarray);
 
 
