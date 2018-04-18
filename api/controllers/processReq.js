@@ -132,9 +132,9 @@ function registerrequest(req,res) {
 function handlelexrequest(req,res) {
 
   req.body.ciservicename = "Lex";
-  console.log(req.body);
-  //var val = req.body.input;
-  var val = "Hi";
+  console.log(req);
+  var val = req.body.input;
+  //var val = "Hi";
   var channelid = req.body.channel.name;
 
   var inputarray = val.split(' ');
@@ -285,7 +285,8 @@ function handlelexrequest(req,res) {
                  };
                });
 
-               res.json({message : e.message})
+               //res.json({message : e.message})
+			   sendMessage('jenson', {text: "Hey"});
            });
            };
          });
@@ -294,4 +295,21 @@ function handlelexrequest(req,res) {
 
 
 
+}
+
+
+function sendMessage(recipientId, message) {
+    request({
+        url: "https://graph.facebook.com/v2.6/me/messages",
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: "POST",
+        json: {
+            recipient: {id: recipientId},
+            message: message,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log("Error sending message: " + response.error);
+        }
+    });
 }
