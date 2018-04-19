@@ -1,201 +1,317 @@
-var express = require("express");
-var request = require("request");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+'use strict';
 
-var db = mongoose.connect(process.env.MONGODB_URI);
-//var Movie = require("./models/movie");
+var http  = require('http'),
+    https = require('https'),
+    aws4  = require('aws4');
+var rp   = require('request-promise');
 
-var app = express();
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000));
+var crypto = require('crypto'),
+key = 'jenson';
 
-// Server index page
-app.get("/", function (req, res) {
-    res.send("Deployed!");
-});
+var mongoose = require('mongoose'),
+blacklistcheck = mongoose.model('blacklist'),
+audit = mongoose.model('audit'),
+ciservice = mongoose.model('ciservice'),
+channel = mongoose.model('channel'),
+answers = mongoose.model('answers');
 
-// Facebook Webhook
-// Used for verification
-app.get("/webhook", function (req, res) {
-    if (req.query["hub.verify_token"] === process.env.VERIFICATION_TOKEN) {
-        console.log("Verified webhook");
-        res.status(200).send(req.query["hub.challenge"]);
-    } else {
-        console.error("Verification failed. The tokens do not match.");
-        res.sendStatus(403);
-    }
-});
 
-// All callbacks for Messenger will be POST-ed here
-app.post("/webhook", function (req, res) {
-    // Make sure this is a page subscription
-    if (req.body.object == "page") {
-        // Iterate over each entry
-        // There may be multiple entries if batched
-        req.body.entry.forEach(function(entry) {
-            // Iterate over each messaging event
-            entry.messaging.forEach(function(event) {
-                if (event.postback) {
-                    processPostback(event);
-                } else if (event.message) {
-                    processMessage(event);
-                }
+var randomItem = require('random-item');
+
+// var mongoose = require('mongoose'),
+// audit = mongoose.model('audit');
+
+var request = require('request');
+
+exports.handlerequest = function(req, res) {
+registerrequest(req,res);
+
+};
+
+//exports.handlegetrequest = function(req, res) {
+//  // if (req.query["hub.verify_token"] === process.env.VERIFICATION_TOKEN) {
+//  //     console.log("Verified webhook");
+//  //     res.status(200).send(req.query["hub.challenge"]);
+//  // } else {
+//  //     console.error("Verification failed. The tokens do not match.");
+//  //     res.sendStatus(403);
+//  // }
+//
+//  var token = req.body.token;
+//  console.log(token);
+//
+//  channel.find({verificationToken : token}, function(err, ctask) {
+//    if (err){
+//      res.send(err);
+//    }else{
+//      if (ctask.length ===0){
+//          //res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+//		  res.send("1391213325");
+//      }else{
+//        console.log(ctask[0].enabled);
+//        if( ctask[0].enabled === 1){
+//          res.status(200)
+//        }else{
+//          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
+//        }
+//      }
+//
+//    };
+//
+//});
+//
+//
+//};
+
+function registerrequest(req,res) {
+
+  console.log(JSON.stringify(req.body.object));
+  var token = req.body.verify_token;
+  console.log(token);
+
+  channel.find({verificationToken : process.env.VERIFICATION_TOKEN}, function(err, ctask) {
+    if (err){
+      res.send(err);
+    }else{
+		console.log(req.query["hub.verify_token"]);
+      console.log('checking token');
+      if (ctask.length ===0){
+          res.json({message :'The channel is not registered with Diana Server or the Token is Incorrect'});
+      }else{
+      console.log('is verified');
+
+        if( ctask[0].enabled === 1){
+            console.log('is enabled ' +ctask[0].enabled);
+          req.body.channel = ctask[0];
+          var count = req.body.channel.reqCount + 1;
+        channel.update({name:req.body.channel.name}, {$set: { reqCount: count }},  {upsert: true}, function(err,task){
+          if (err){
+            console.log('Could not update channel req count'+ err);
+          }
+          else{
+            console.log('req count incremented  ' + task);
+            var auditdata = {channelName : req.body.channel.name, requestDate : new Date()} ;
+            var auditinfo = new audit(auditdata);
+            auditinfo.save(function(err, task) {
+              if (err){
+                console.log('Audit information could not be saved' + err);
+                res.json({message :'Audit information could not be saved. Not forwarding to CI Service'});
+              }else{
+              console.log(task);
+              req.body.auditid = task._id;
+              console.log(req.body.auditid);
+
+
+              //var answersinfo = new answers(answersdata);
+
+
+              handlelexrequest(req, res);
+            }
+
             });
+          }
         });
 
-        res.sendStatus(200);
-    }
+
+
+
+
+        }else{
+          res.json({message :'The '+ctask[0].name+' channel is not enabled. Please enable at Diana Server.'});
+        }
+      }
+
+    };
+
 });
 
-function processPostback(event) {
-    var senderId = event.sender.id;
-    var payload = event.postback.payload;
+};
 
-    if (payload === "Greeting") {
-        // Get user's first name from the User Profile API
-        // and include it in the greeting
-        request({
-            url: "https://graph.facebook.com/v2.6/" + senderId,
-            qs: {
-                access_token: process.env.PAGE_ACCESS_TOKEN,
-                fields: "first_name"
-            },
-            method: "GET"
-        }, function(error, response, body) {
-            var greeting = "";
-            if (error) {
-                console.log("Error getting user's name: " +  error);
-            } else {
-                var bodyObj = JSON.parse(body);
-                name = bodyObj.first_name;
-                greeting = "Hi " + name + ". ";
-            }
-            var message = greeting + "My name is SP Movie Bot. I can tell you various details regarding movies. What movie would you like to know about?";
-            sendMessage(senderId, {text: message});
-        });
-    } else if (payload === "Correct") {
-        sendMessage(senderId, {text: "Awesome! What would you like to find out? Enter 'plot', 'date', 'runtime', 'director', 'cast' or 'rating' for the various details."});
-    } else if (payload === "Incorrect") {
-        sendMessage(senderId, {text: "Oops! Sorry about that. Try using the exact title of the movie"});
-    }
-}
 
-function processMessage(event) {
-    if (!event.message.is_echo) {
-        var message = event.message;
-        var senderId = event.sender.id;
 
-        console.log("Received message from senderId: " + senderId);
-        console.log("Message is: " + JSON.stringify(message));
+function handlelexrequest(req,res) {
 
-        // You may get a text or attachment but not both
-        if (message.text) {
-            var formattedMsg = message.text.toLowerCase().trim();
+  req.body.ciservicename = "Lex";
+  //console.log(req);
+  var val = req.body.input;
+  //var val = "Hi";
+  var channelid = req.body.channel.name;
 
-            // If we receive a text message, check to see if it matches any special
-            // keywords and send back the corresponding movie detail.
-            // Otherwise search for new movie.
-            switch (formattedMsg) {
-                case "plot":
-                case "date":
-                case "runtime":
-                case "director":
-                case "cast":
-                case "rating":
-                    getMovieDetail(senderId, formattedMsg);
-                    break;
+  var inputarray = val.split(' ');
+ //var inputarray = ['Hi'];
+  console.log(inputarray);
 
-                default:
-                    findMovie(senderId, formattedMsg);
-            }
-        } else if (message.attachments) {
-            sendMessage(senderId, {text: "Sorry, I don't understand your request."});
-        }
-    }
-}
 
-function findMovie(userId, movieTitle) {
-    request("http://www.omdbapi.com/?type=movie&t=" + movieTitle, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var movieObj = JSON.parse(body);
-            if (movieObj.Response === "True") {
-                var query = {user_id: userId};
-                var update = {
-                    user_id: userId,
-                    title: movieObj.Title,
-                    plot: movieObj.Plot,
-                    date: movieObj.Released,
-                    runtime: movieObj.Runtime,
-                    director: movieObj.Director,
-                    cast: movieObj.Actors,
-                    rating: movieObj.imdbRating,
-                    poster_url:movieObj.Poster
-                };
-                var options = {upsert: true};
-                Movie.findOneAndUpdate(query, update, options, function(err, mov) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                        message = {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: [{
-                                        title: movieObj.Title,
-                                        subtitle: "Is this the movie you are looking for?",
-                                        image_url: movieObj.Poster === "N/A" ? "http://placehold.it/350x150" : movieObj.Poster,
-                                        buttons: [{
-                                            type: "postback",
-                                            title: "Yes",
-                                            payload: "Correct"
-                                        }, {
-                                            type: "postback",
-                                            title: "No",
-                                            payload: "Incorrect"
-                                        }]
-                                    }]
-                                }
-                            }
-                        };
-                        sendMessage(userId, message);
-                    }
+
+
+         blacklistcheck.find({}, function(err, task) {
+           if (err){
+             res.send(err);
+           }else{
+
+             for (let word in inputarray){
+
+             for (var i=0 ; i < task.length ; i++){
+                 var checkval = new RegExp(task[i].pattern.toString());
+                 if (checkval.test(inputarray[word])) {
+                  inputarray[word] = crypto.createHmac('md5', key).update(inputarray[word]).digest('hex');
+                console.log(inputarray[word]);
+
+ // var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
+ // console.log( mykey);
+// var mystr = mykey.update('abc', 'utf8', 'hex')
+// mystr += mykey.update.final('hex');
+//
+// console.log(mystr); //34feb914c099df25794bf9ccb85bea72
+
+
+// var mykey = crypto.createDecipher('aes-128-cbc', 'mypassword');
+// var mystr = mykey.update('34feb914c099df25794bf9ccb85bea72', 'hex', 'utf8')
+// mystr += mykey.update.final('utf8');
+//
+// console.log(mystr); //abc
+            //  res.json({message :'You have entered something blacklisted - ' +task[i].name });
+                }
+              };
+            };
+            val = inputarray.join(" ");
+
+              // var hash = crypto.createHmac('md5', key).update(val).digest('hex');
+              // var resp = hash;
+
+
+
+
+              console.log('in');
+            var    bodytext = '{"inputText" : "'+val+'" , "requestAttributes":{"auditid" : "'+ req.body.auditid +'", "channelid" : "'+ channelid +'"}}';
+            console.log(bodytext);
+
+
+           var nameofuser = randomItem(['jensonj', 'adityas', 'shrimank', 'anitha']);
+           req.body.nameofuser = nameofuser;
+
+          var opts = {
+                 host: 'runtime.lex.us-east-1.amazonaws.com',
+                 service: 'lex',
+                 region: 'us-east-1',
+                 uri: `https://runtime.lex.us-east-1.amazonaws.com/bot/dianaBot/alias/dianaServer/user/${nameofuser}/text`,
+                 path: `bot/dianaBot/alias/dianaServer/user/${nameofuser}/text`,
+                 body : bodytext,
+                 diana : req.body
+                 };
+                 //console.log(opts);
+
+
+             ciservice.find({name : "Lex"}, function(err, task) {
+               if (err){
+                 res.send(err);
+               }else{
+                 var accessKeyId  = task[0].accessKey;
+                 var secretAccessKey = task[0].secretKey;
+
+             aws4.sign(opts, {
+               accessKeyId: accessKeyId,
+               secretAccessKey: secretAccessKey
+
+             });
+
+             console.log("Opts after sign");
+
+
+
+             rp(opts)
+             .then( (html)=>{
+                console.log(typeof(html))
+                //console.log(req.body);
+                channel.update({name:req.body.channel.name}, {$inc: { successCount:  1 }},{upsert: true},  function(err){
+                  if(err){
+                    console.log('Could not update channel success count' + err);
+                  }
                 });
-            } else {
-                console.log(movieObj.Error);
-                sendMessage(userId, {text: movieObj.Error});
-            }
-        } else {
-            sendMessage(userId, {text: "Something went wrong. Try again."});
-        }
-    });
+
+
+                console.log(JSON.parse(html).message);
+
+
+                var answersdata = {
+                  channelName:req.body.channel.name,
+                  ciservice:req.body.ciservicename,
+                  query:  req.body.input ,
+                  answerByCi: JSON.parse(html).message,
+                  userName:req.body.nameofuser ,
+                  requestDate: new Date(),
+                  status: JSON.parse(html).intentName === null ? 0 : 1
+                };
+                //console.log(answersdata);
+
+                 var answerinfo = new answers(answersdata);
+                 answerinfo.save(function(err, task) {
+                   if (err){
+                     console.log('Could not save answers' + err);
+                   }
+                   else{
+                     console.log('Answers1 saved');
+                   };
+                 });
+                //JSON.parse(html).timestamp = new Date();
+                res.json(JSON.parse(html));
+                var out = html;
+              }
+               )
+             .catch( (e)=> {
+               console.log('failed:'+e)
+               channel.update({name:req.body.channel.name}, {$inc: { failCount: 1 }},{upsert: true}, function(err){
+                 if(err){
+                   console.log('Could not update channel fail count' + err);
+                 }
+               })
+               var answersdata = {
+                 channelName:req.body.channel.name,
+                 ciservice:req.body.ciservicename,
+                 query:  req.body.input,
+                 answerByCi:'',
+                 userName:req.body.nameofuser ,
+                 requestDate: new Date(),
+                 status: 2
+               };
+
+
+               var answerinfo = new answers(answersdata);
+               answerinfo.save(function(err, task) {
+                 if (err){
+                   console.log('Could not save answers' + err);
+                 }
+                 else{
+                   console.log('Answers2 saved');
+                 };
+               });
+
+          res.json({message : e.message})
+	//		   var name = 'jenson';
+		//	   sendMessage(name, {text: "Hey"});
+           });
+           };
+         });
+           }
+         });
+
+
+
 }
 
-function getMovieDetail(userId, field) {
-    Movie.findOne({user_id: userId}, function(err, movie) {
-        if(err) {
-            sendMessage(userId, {text: "Something went wrong. Try again"});
-        } else {
-            sendMessage(userId, {text: movie[field]});
-        }
-    });
-}
 
-// sends message to user
-function sendMessage(recipientId, message) {
-    request({
-        url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: "POST",
-        json: {
-            recipient: {id: recipientId},
-            message: message,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log("Error sending message: " + response.error);
-        }
-    });
-}
+//function sendMessage(recipientId, message) {
+//    request({
+//        url: "https://graph.facebook.com/v2.6/me/messages",
+//        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+//        method: "POST",
+//        json: {
+//            recipient: {id: recipientId},
+//            message: message,
+//        }
+//    }, function(error, response, body) {
+//        if (error) {
+//            console.log("Error sending message: " + response.error);
+//        }
+//    });
+//}
