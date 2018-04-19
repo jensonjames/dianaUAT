@@ -836,9 +836,9 @@ function handletransferRequest(request, resp,auditModel) {
 	  var craccount = sessionattr.craccount;
 	  var amount = sessionattr.amount;
 	  
-	  var globalval.draccount = sessionattr.draccount;
-	  var globalval.craccount = sessionattr.craccount;
-	  var globalval.amount = sessionattr.amount;
+	  globalval.draccount = sessionattr.draccount;
+	  globalval.craccount = sessionattr.craccount;
+	  globalval.amount = sessionattr.amount;
 	  
 	  
       CustomerAccDetails.find({
