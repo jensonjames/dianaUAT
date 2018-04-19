@@ -911,7 +911,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 	  {$inc: { AccoutBal:  amount1 }}
 	  ).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
-               if (docs.length === 0) {
+               if (err) {
                 console.log("Inside if block");
                 var val = 'Unable to fetch the record to update the balance';
                 var responeData = {"callbackMessage": val};
@@ -933,17 +933,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 				
 				
         
-                                      }},
-                                      (e) => {
-                                         console.log("Inside error block");
-                                        var val = `Something went wrong `
-                                        var responeData = {"callbackMessage": val};
-                                        auditModel.responseData =responeData;
-                                        console.log("auditModel>>",auditModel);
-                                        saveAudit(request,auditModel);
-                                        resp.json(responeData);
-
-                                      });
+                                      }});
                              
 
 }
