@@ -911,7 +911,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 	  {$inc: { AccoutBal:  amount1 }}
 	  ).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
-               if (err) {
+               if (e) {
                 console.log("Inside if block");
                 var val = 'Unable to fetch the record to update the balance';
                 var responeData = {"callbackMessage": val};
