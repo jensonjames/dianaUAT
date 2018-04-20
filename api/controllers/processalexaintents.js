@@ -871,7 +871,8 @@ function handletransferRequest(request, resp,auditModel) {
                 saveAudit(request,auditModel);
 		       resp.json(responeData);
 				} else {
-				var val = `Transfer of ${amount} from ${docs[0].accounttype} account ${draccount} to the beneficiary account ${craccount} is initiated. Please CONFIRM to proceed`;
+					
+				var val = `Transfer of ${amount} from ${docs[0].accounttype} account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ending with ${craccount.substring(craccount.length - 4 , craccount.length)} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
