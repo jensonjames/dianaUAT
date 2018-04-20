@@ -903,16 +903,13 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 	  
 	  var amount1= -1 * globalval.amount;
 	  
-      CustomerAccDetails.update({
+	    CustomerAccDetails.update({
           cifid:globalval.cifid,
 		  accounts:globalval.draccount
 		  
-      },
-	  {$inc: { AccoutBal:  amount1 }}
-	  ).then((docs) => {
-              console.log('Data got fetched from the database' + docs.length);
-               if (e) {
-                console.log("Inside if block");
+      }, {$inc: { AccoutBal:  amount1 }},   function(err,task){
+    if (err){
+      console.log("Inside if block");
                 var val = 'Unable to fetch the record to update the balance';
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
@@ -933,8 +930,42 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 				
 				
         
-                                      }});
-                             
+                                      }
+		})
+	  
+	  
+  //    CustomerAccDetails.update({
+  //        cifid:globalval.cifid,
+	//	  accounts:globalval.draccount
+	//	  
+  //    },
+	//  {$inc: { AccoutBal:  amount1 }}
+	//  ).then((docs) => {
+  //            console.log('Data got fetched from the database' + docs.length);
+  //             if (e) {
+  //              console.log("Inside if block");
+  //              var val = 'Unable to fetch the record to update the balance';
+  //              var responeData = {"callbackMessage": val};
+  //              auditModel.responseData =responeData;
+  //              console.log("auditModel>>",auditModel);
+  //              saveAudit(request,auditModel);
+  //              resp.json(responeData);
+  //
+  //        
+  //            } else {
+  //
+	//			
+	//			var val = `Transferred Successfully! Cuurent balance in the account is ${docs[0].AccoutBal}`;
+  //              var responeData = {"callbackMessage": val};
+  //              auditModel.responseData =responeData;
+  //              console.log("auditModel>>",auditModel);
+  //              saveAudit(request,auditModel);
+	//	       resp.json(responeData);
+	//			
+	//			
+  //      
+  //                                    }});
+  //                           
 
 }
    function handleGetBalIntentS(request, resp,auditModel) {
