@@ -921,7 +921,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
               } else {
 
 				
-				var val = `Transferred Successfully! Cuurent balance in the account is ${docs[0].AccoutBal}`;
+				var val = `Transferred Successfully! `;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
