@@ -33,7 +33,7 @@ module.exports = function(app) {
 	 app.route('/alexawebhook')
       .post(alexaprocessReq.handler)
    //   .get(dfprocessReq.handlegetrequest)
-
+console.log('Hey there2');
     app.route('/handleintents')
       .post(processintents.handleintents)
 
