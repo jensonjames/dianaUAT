@@ -24,6 +24,7 @@ const welcomeOutput = "Welcome to the Chat Banking. I am Diana, your Chat Assist
 const welcomeReprompt = "Let me know how can i help you";
 
 exports.handler = function(event, context, callback){
+	console.log('Entered here');
     var alexa = Alexa.handler(event,context);
     alexa.appId = "amzn1.ask.skill.9ccb7034-dded-4926-a17e-13a7bac3c733";
     alexa.registerHandlers(Handler);
