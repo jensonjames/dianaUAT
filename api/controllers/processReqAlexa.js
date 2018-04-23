@@ -7,7 +7,6 @@ const httprequest = require('request');
 
 
 var {mongoose} = require('./db/mongoose');
-var {ciservice} = require('./models/ciservice');
 var {audit} = require('./models/audit');
 
 
