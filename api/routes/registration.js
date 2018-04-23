@@ -31,7 +31,7 @@ module.exports = function(app) {
       .get(dfprocessReq.handlegetrequest)
 	  
 	 app.route('/alexawebhook')
-      .post(alexaprocessReq)
+      .post(alexaprocessReq.handler)
    //   .get(dfprocessReq.handlegetrequest)
 
     app.route('/handleintents')
