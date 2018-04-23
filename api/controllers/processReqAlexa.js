@@ -22,6 +22,8 @@ let reprompt;
 const welcomeOutput = "Welcome to the Chat Banking. I am Diana, your Chat Assistant";
 const welcomeReprompt = "Let me know how can i help you";
 
+exports.handleintents = function(req, resp) {
+var event = req;
 exports.handler = function(event, context, callback){
 	console.log('Entered here');
     var alexa = Alexa.handler(event,context);
@@ -30,7 +32,7 @@ exports.handler = function(event, context, callback){
     alexa.execute();
 };
 
-
+};
 
 
 var Handler = {
