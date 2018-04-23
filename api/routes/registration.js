@@ -29,7 +29,7 @@ module.exports = function(app) {
     app.route('/dfwebhook')
       .post(dfprocessReq.handlerequest)
       .get(dfprocessReq.handlegetrequest)
-	  
+	  console.log('Hey there');
 	 app.route('/alexawebhook')
       .post(alexaprocessReq.handler)
    //   .get(dfprocessReq.handlegetrequest)
