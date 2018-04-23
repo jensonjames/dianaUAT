@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 blacklistcheck = mongoose.model('blacklist'),
 audit = mongoose.model('audit'),
 ciservice = mongoose.model('ciservice'),
+beneficiary = mongoose.model('beneficiary'),
 channel = mongoose.model('channel');
 
 var {CustomerAccDetails} = require('../models/customer_Acc');
@@ -840,8 +841,30 @@ function handletransferRequest(request, resp,auditModel) {
 	  globalval.craccount = sessionattr.craccount;
 	  globalval.amount = sessionattr.amount;
 	  
-	  
-      CustomerAccDetails.find({
+	  beneficiary.find({  $or: [
+    { benefname: globalval.craccount },
+    { benefaccount: globalval.craccount }
+  ]},function(err,data){
+	  if (err){
+		   var val = 'Unbale to find Beneficiary. Please let me know how can i help you';
+                var responeData = {"callbackMessage": val};
+                auditModel.responseData =responeData;
+                console.log("auditModel>>",auditModel);
+                saveAudit(request,auditModel);
+                resp.json(responeData);
+	  }else{
+		  if(data.length === 0){
+			   var val = 'Unbale to find Beneficiary. Please let me know how can i help you';
+                var responeData = {"callbackMessage": val};
+                auditModel.responseData =responeData;
+                console.log("auditModel>>",auditModel);
+                saveAudit(request,auditModel);
+                resp.json(responeData);
+			}else{
+				console.log(data);
+				var benef = data[0].benefname;
+				
+				      CustomerAccDetails.find({
           cifid:globalval.cifid,
 		  accounts:draccount
 		  
@@ -872,7 +895,7 @@ function handletransferRequest(request, resp,auditModel) {
 		       resp.json(responeData);
 				} else {
 					
-				var val = `Transfer of ${amount} from ${docs[0].accounttype} account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ending with ${craccount.substring(craccount.length - 4 , craccount.length)} is initiated. Please CONFIRM to proceed`;
+				var val = `Transfer of ${amount} from ${docs[0].accounttype} to ${benef} account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ending with ${craccount.substring(craccount.length - 4 , craccount.length)} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -893,6 +916,12 @@ function handletransferRequest(request, resp,auditModel) {
 
                                       });
                              
+				
+		  
+			}
+	  }
+	  });
+
 
 }
 

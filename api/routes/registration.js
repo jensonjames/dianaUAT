@@ -4,6 +4,7 @@ module.exports = function(app) {
   var blackList = require('../controllers/blacklist');
   var processReq = require('../controllers/processReq');
   var dfprocessReq = require('../controllers/dfprocessReq');
+  var alexaprocessReq = require('../controllers/processReqAlexa');
   var channel = require('../controllers/channel');
   var ciservice = require('../controllers/ciservice');
   var processintents = require('../controllers/processintents');
@@ -28,6 +29,10 @@ module.exports = function(app) {
     app.route('/dfwebhook')
       .post(dfprocessReq.handlerequest)
       .get(dfprocessReq.handlegetrequest)
+	  
+	 app.route('/alexawebhook')
+      .post(alexaprocessReq)
+   //   .get(dfprocessReq.handlegetrequest)
 
     app.route('/handleintents')
       .post(processintents.handleintents)
