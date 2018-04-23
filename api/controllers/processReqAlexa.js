@@ -6,8 +6,8 @@ const date = new Date().getHours();
 const httprequest = require('request');
 
 
-var {mongoose} = require('./db/mongoose');
-var {audit} = require('./models/audit');
+var mongoose = require('mongoose'),
+audit = mongoose.model('audit');
 
 
 var globalamt ={};
