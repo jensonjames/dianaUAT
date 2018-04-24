@@ -624,7 +624,7 @@ console.log(typeof(otpGen));
 //////////
 
                                   console.log("Inside if block");
-                                  var val = `Dear ${nameofuser} currently have multiple accounts in ABC Bank, is your enquiry on a specific Account ? or do I read you Balances of all accounts`
+                                  var val = `Mr ${nameofuser} Currently you have multiple accounts in ABC Bank, is your enquiry on a specific Account ? or do I read you Balances of all accounts`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -1065,6 +1065,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
                   cifid: cifofuser
               }).then((doc) => {
                   console.log('in for balance');
+				  console.log(doc);
            //       var inputTranscript =request.body.input.inputTranscript;
                  // console.log(inputTranscript);
              //     console.log(`inputTranscript:${request.body.input.inputTranscript}`);
