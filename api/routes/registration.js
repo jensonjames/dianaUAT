@@ -11,7 +11,7 @@ module.exports = function(app) {
   var processalexaintents = require('../controllers/processalexaintents');
   var audit = require('../controllers/audit');
   var answer = require('../controllers/answers');
-
+  
     app.route('/lexregistration')
       .get(todoList.list_all_regs_lex)
       .post(todoList.register_a_channel_lex);

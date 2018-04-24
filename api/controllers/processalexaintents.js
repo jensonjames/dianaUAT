@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 blacklistcheck = mongoose.model('blacklist'),
 audit = mongoose.model('audit'),
 ciservice = mongoose.model('ciservice'),
-//beneficiary = mongoose.model('beneficiarydetails'),
+transactions = mongoose.model('transactions'),
 channel = mongoose.model('channel');
 
 var {CustomerAccDetails} = require('../models/customer_Acc');
@@ -971,7 +971,21 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 
           
               } else {
-
+				  
+				  
+				 var trandata = {draccount : globalval.draccount, craccount : globalval.craccount, amount :  globalval.amount } ;
+				var traninfo = new transactions(trandata);
+				traninfo.save(function(err, task) {
+              if (err){
+				   var val = 'Unable to save transaction';
+                var responeData = {"callbackMessage": val};
+                auditModel.responseData =responeData;
+                console.log("auditModel>>",auditModel);
+                saveAudit(request,auditModel);
+                resp.json(responeData);
+				  
+			  }else{
+				  
 				
 				var val = `Transferred Successfully! `;
                 var responeData = {"callbackMessage": val};
@@ -985,6 +999,8 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
         
                                       }
 		})
+		}
+				});
 	  
 	  
   //    CustomerAccDetails.update({
