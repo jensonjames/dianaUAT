@@ -977,7 +977,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 				var traninfo = new transactions(trandata);
 				traninfo.save(function(err, task) {
               if (err){
-				   var val = 'Unable to save transaction';
+				   var val = 'Unable to save transaction' + err;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
