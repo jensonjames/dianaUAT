@@ -846,7 +846,7 @@ function handletransferRequest(request, resp,auditModel) {
     { BeneficiaryName: globalval.craccount }
   ,function(err,data){
 	  if (err){
-		   var val = 'Unbale to find Beneficiary. Please let me know how can i help you';
+		   var val = 'Benfeciary Details cannot be fetched. Please let me know how can i help you. ';
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -854,7 +854,7 @@ function handletransferRequest(request, resp,auditModel) {
                 resp.json(responeData);
 	  }else{
 		  if(data.length === 0){
-			   var val = 'Unbale to find Beneficiary. Please let me know how can i help you';
+			   var val = 'Beneficiary details not present for ${globalval.craccount}. Please add beneficiary details from the Internet Banking page. please say transfer if you want to reinitiate the transfer';
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
