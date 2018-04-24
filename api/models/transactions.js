@@ -10,7 +10,7 @@ var transactions = new Schema({
   minlength: 1
 },
  craccount:{
-  type: Number,
+  type: String,
   required: true,
   trim: true,
   minlength: 1
