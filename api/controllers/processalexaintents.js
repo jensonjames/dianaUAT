@@ -863,7 +863,8 @@ function handletransferRequest(request, resp,auditModel) {
 			}else{
 				console.log(data);
 				var benef = data[0].BeneficiaryName;
-				
+				console.log(globalval.cifid);
+				console.log(draccount);
 				      CustomerAccDetails.find({
           cifid:globalval.cifid,
 		  accounts:draccount
