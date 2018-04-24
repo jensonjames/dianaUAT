@@ -959,7 +959,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
           //cifid:globalval.cifid,
 		  accounts:globalval.BeneficiaryAccount
 		  
-      }, {$inc: { AccoutBal:  amount }},   function(err,task){
+      }, {$inc: { AccoutBal:  globalval.amount }},   function(err,task){
     if (err){
       console.log("Inside if block");
                 var val = 'Unable to fetch the record to credit the balance';
