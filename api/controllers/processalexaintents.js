@@ -854,7 +854,7 @@ function handletransferRequest(request, resp,auditModel) {
                 resp.json(responeData);
 	  }else{
 		  if(data.length === 0){
-			   var val = 'Beneficiary details not present for ${globalval.craccount}. Please add beneficiary details from the Internet Banking page. please say transfer if you want to reinitiate the transfer';
+			   var val = `Beneficiary details not present for ${globalval.craccount}. Please add beneficiary details from the Internet Banking page. please say transfer if you want to reinitiate the transfer`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
