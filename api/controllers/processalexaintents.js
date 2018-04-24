@@ -973,7 +973,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
               } else {
 				  
 				  
-				 var trandata = {draccount : globalval.draccount, craccount : globalval.craccount, amount :  globalval.amount } ;
+				 var trandata = {drcif : globalval.cifid, draccount : globalval.draccount, craccount : globalval.craccount, amount :  globalval.amount } ;
 				var traninfo = new transactions(trandata);
 				traninfo.save(function(err, task) {
               if (err){

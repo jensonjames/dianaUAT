@@ -3,6 +3,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var transactions = new Schema({
+	 drcif:{
+  type: Number,
+  required: true,
+  trim: true,
+  minlength: 1
+},
  draccount:{
   type: Number,
   required: true,
