@@ -862,6 +862,10 @@ function handletransferRequest(request, resp,auditModel) {
                 resp.json(responeData);
 			}else{
 				console.log(data);
+				globalval.benefname = benef;
+				globalval.BeneficiaryAccount = data[0].BeneficiaryAccount;
+				globalval.BenificiaryCif = data[0].BenificiaryCif;
+				
 				var benef = data[0].BeneficiaryName;
 				console.log(globalval.cifid);
 				console.log(draccount);
@@ -896,8 +900,7 @@ function handletransferRequest(request, resp,auditModel) {
 		       resp.json(responeData);
 				} else {
 					
-				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ${benef} //ending with ${craccount.substring(craccount.length - 4 , craccount.length)} 
-							is initiated. Please CONFIRM to proceed`;
+				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -942,7 +945,24 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
       }, {$inc: { AccoutBal:  amount1 }},   function(err,task){
     if (err){
       console.log("Inside if block");
-                var val = 'Unable to fetch the record to update the balance';
+                var val = 'Unable to fetch the record to debit the balance';
+                var responeData = {"callbackMessage": val};
+                auditModel.responseData =responeData;
+                console.log("auditModel>>",auditModel);
+                saveAudit(request,auditModel);
+                resp.json(responeData);
+
+          
+              } else {
+				  
+				  	    CustomerAccDetails.update({
+          //cifid:globalval.cifid,
+		  accounts:globalval.BeneficiaryAccount
+		  
+      }, {$inc: { AccoutBal:  amount }},   function(err,task){
+    if (err){
+      console.log("Inside if block");
+                var val = 'Unable to fetch the record to credit the balance';
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -960,7 +980,8 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
                 saveAudit(request,auditModel);
 		       resp.json(responeData);
 				
-				
+				 }
+		})
         
                                       }
 		})
