@@ -362,8 +362,9 @@ resp.json(responeData);
 //				   25th March, Electricity bill spent is 1265 INR
 //`
 var len = data.length;
+ //var lastamount = data[len].amount from ${data[len].draccount} account to ${data[len].craccount}
 
-var val = `${todatestr}, Transferred  ${data[len].amount} from ${data[len].draccount} account to ${data[len].craccount}`
+var val = `${todatestr}, Transferred  ${data[len-1].amount} from ${data[len-1].draccount} account to ${data[len-1].craccount}`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
