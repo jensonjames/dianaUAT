@@ -557,7 +557,7 @@ function saveAudit(request,auditModel){
 	  if (globalval.mode === 'T') {
 		   console.log('Entered transferRequest Execution Block');
                 handleconfirmtransferRequest(request, resp,auditModel);
-	  }
+	  }else {
 	  
       var cnt = 0;
       //var otpGen = request.body.input.sessionAttributes.otp;
@@ -697,7 +697,7 @@ console.log(typeof(otpGen));
       }
   }
 
-
+}
   /////////////
 
   function handleGetBalIntent(request, resp,auditModel) {
