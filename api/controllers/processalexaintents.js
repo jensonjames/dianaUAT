@@ -177,7 +177,7 @@ var intentName =intentNamefuntion(input);
 
             case 'statementIntent':
                 console.log('Entered statementIntent Execution Block');
-                handlestatementIntent(request, callback);
+                handlestatementIntent(request, resp,auditModel);
                 break;
 
         ///////////////
