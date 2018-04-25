@@ -902,7 +902,8 @@ function handletransferRequest(request, resp,auditModel) {
 					
 				globalval.balanceamount = 	docs[0].AccoutBal - amount;
 				console.log(globalval.balanceamount);
-				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
+				//ending with ${draccount.substring(draccount.length - 4 , draccount.length)} 
+				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -942,7 +943,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 	  console.log(amount1);
 	    CustomerAccDetails.update({
           cifid:globalval.cifid,
-		  accounts:globalval.draccount
+		  accounttype:globalval.draccount
 		  
       }, {$inc: { AccoutBal:  amount1 }},   function(err,task){
     if (err){
