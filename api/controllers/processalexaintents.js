@@ -351,12 +351,15 @@ resp.json(responeData);
 	}else{
 		console.log('in for succ statement');
 		console.log(data);
-		var val = `16th March, Payment received from Lavender 8500 INR,
-				   18th March, ICICI bill payment of  2888 INR,
-				   20th March, Mc.Donalds spent is  641 INR,
-				   24th March, Amazon Internet services spent is  200 INR,
-				   25th March, Electricity bill spent is 1265 INR
-`
+//		var val = `16th March, Payment received from Lavender 8500 INR,
+//				   18th March, ICICI bill payment of  2888 INR,
+//				   20th March, Mc.Donalds spent is  641 INR,
+//				   24th March, Amazon Internet services spent is  200 INR,
+//				   25th March, Electricity bill spent is 1265 INR
+//`
+var len = data.length;
+
+var val = `${date}, Transferred  ${data[7].amount} from ${data[7].draccount} account to ${data[7].craccount}`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
