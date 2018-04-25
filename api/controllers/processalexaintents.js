@@ -20,7 +20,7 @@ var globalval ={};
 
 exports.handleintents = function(req, resp) {
   console.log("Process Intent Start");
-  console.log(req.body);
+  //console.log(req.body);
    console.log('req body printed');
       var request = req;
 
@@ -51,14 +51,14 @@ exports.handleintents = function(req, resp) {
 
 //    var custuserid1=request.body.input.sessionAttributes.custuserid;
 
-      console.log(typeof(JSON.stringify(req.body.input)));
+      //console.log(typeof(JSON.stringify(req.body.input)));
 /////
 var input = request.body.input;
 
 function intentNamefuntion(a) {
   if (typeof(a.body) === "string") {
 console.log("Inside IF");
-    console.log("JSON.parse(a.body) >>>>>>",JSON.parse(a.body));
+    //console.log("JSON.parse(a.body) >>>>>>",JSON.parse(a.body));
     var bodydata = JSON.parse(a.body);
     console.log(bodydata.result.metadata.intentName);
     var bodyintent=bodydata.result.metadata.intentName;
