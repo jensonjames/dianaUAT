@@ -351,7 +351,12 @@ resp.json(responeData);
 	}else{
 		console.log('in for succ statement');
 		console.log(data);
-		var val = `HI This is response from statement intent server`
+		var val = `16th March – Payment received from Lavender F2 is Rs.8500INR
+18th March – ICICI bill payment of Rs. 2888INR
+20th March – Mc.Donalds spent is Rs. 641INR
+24th March – Amazon Internet services spent is Rs. 200INR
+25th March – Electricity bill spent is Rs. 1265INR
+`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
