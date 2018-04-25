@@ -363,7 +363,7 @@ resp.json(responeData);
 //`
 var len = data.length;
 
-var val = `${todatestr}, Transferred  ${data[7].amount} from ${data[7].draccount} account to ${data[7].craccount}`
+var val = `${todatestr}, Transferred  ${data[len].amount} from ${data[len].draccount} account to ${data[len].craccount}`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
