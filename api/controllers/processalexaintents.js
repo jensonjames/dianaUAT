@@ -912,7 +912,7 @@ function handletransferRequest(request, resp,auditModel) {
 				globalval.balanceamount = 	docs[0].AccoutBal - amount;
 				console.log(globalval.balanceamount);
 				//ending with ${draccount.substring(draccount.length - 4 , draccount.length)} 
-				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
+				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account to the beneficiary name ${benef} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -999,7 +999,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 			  }else{
 				  
 				
-			  var val = `Your transfer is done successfully!! The account balance is  ${globalval.balanceamount}`;
+			  var val = `Thanks for confirming the OTP. Your transfer is done successfully!! The account balance is  ${globalval.balanceamount}`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
