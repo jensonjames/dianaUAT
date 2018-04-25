@@ -553,6 +553,12 @@ function saveAudit(request,auditModel){
 
   function handleGetCustAuthIntent(request, resp,auditModel) {
       console.log('Start handleGetCustAuthIntent');
+	  
+	  if (globalval.mode === 'T') {
+		   console.log('Entered transferRequest Execution Block');
+                handleconfirmtransferRequest(request, resp,auditModel);
+	  }
+	  
       var cnt = 0;
       //var otpGen = request.body.input.sessionAttributes.otp;
 	var otpGen = 111111;
@@ -831,6 +837,8 @@ console.log(typeof(otpGen));
   }
 function handletransferRequest(request, resp,auditModel) {
       console.log('Start handletransferRequest');
+	 globalval.cifid = 123450; 
+	  
 	  var sessionattr = request.body.input.session.attributes;
 	  console.log(sessionattr);
 		
@@ -899,11 +907,12 @@ function handletransferRequest(request, resp,auditModel) {
                 saveAudit(request,auditModel);
 		       resp.json(responeData);
 				} else {
+					globalval.mode = 'T';
 					
 				globalval.balanceamount = 	docs[0].AccoutBal - amount;
 				console.log(globalval.balanceamount);
 				//ending with ${draccount.substring(draccount.length - 4 , draccount.length)} 
-				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
+				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account to the beneficiary account ${benef} is initiated. Please CONFIRM OTP to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
@@ -990,7 +999,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 			  }else{
 				  
 				
-			  var val = `Transferred Successfully! The balance in the account is ${globalval.balanceamount}`;
+			  var val = `Transferred Successfully! The balance in your account is ${globalval.balanceamount}`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
