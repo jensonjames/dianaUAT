@@ -935,11 +935,11 @@ function handletransferRequest(request, resp,auditModel) {
 
 function handleconfirmtransferRequest(request, resp,auditModel) {
       console.log('Start handleconfirmtransferRequest');
-		
-	
+		console.log(globalval.cifid);
+	console.log(globalval.draccount);
 	  
 	  var amount1= -1 * globalval.amount;
-	  
+	  console.log(amount1);
 	    CustomerAccDetails.update({
           cifid:globalval.cifid,
 		  accounts:globalval.draccount
