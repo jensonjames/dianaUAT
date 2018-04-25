@@ -630,7 +630,7 @@ console.log(typeof(otpGen));
 //////////
 
                                   console.log("Inside if block");
-                                  var val = `Mr ${nameofuser} Currently you have multiple accounts in ABC Bank, is your enquiry on a specific Account ? or do I read you Balances of all accounts`
+                                  var val = `Currently you have multiple accounts in ABC Bank, is your enquiry on a specific Account ? or do I read you Balances of all accounts`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -795,7 +795,7 @@ console.log(typeof(otpGen));
               //                    resp.json(responeData);
               //    } else {
                                   console.log("Inside if block");
-                                  var val =  `${salofuser} ${nameofuser},Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Your Balance in the ${accounttype2} account  ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
+                                  var val =  `${salofuser} ${nameofuser},Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Your Balance in the ${accounttype2} account  ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with, Please choose the option of Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions. Exit to end the conversation`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -1104,7 +1104,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
                       console.log(balofuser);
                       console.log(`${doc[0].AccountBal}`);
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype} account ending with ${accountNumber.substring(accountNumber.length - 4 , accountNumber.length)} is ${balofuser} ${accountcurrency}.Is there anything else I can help you with, Please choose the option of Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions. Exit to end the conversation`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -1114,7 +1114,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
                  } else if (`${accounttype2}` == 'SAVING') {
                       console.log('got rec' + doc);
                                   console.log("Inside if block");
-                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with`
+                                  var val = `${salofuser} ${nameofuser}, Your Balance in the ${accounttype2} account ending with ${accountNumber2.substring(accountNumber2.length - 4 , accountNumber2.length)} is ${balofuser2} ${accountcurrency2}.Is there anything else I can help you with, Please choose the option of Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions. Exit to end the conversation`
                                   var responeData = {"callbackMessage": val};
                                   auditModel.responseData =responeData;
                                   console.log("auditModel>>",auditModel);
@@ -1486,7 +1486,7 @@ resp.json(responeData);
                   //               console.log("updated successfully");
 ///////////////
 console.log("Inside e block");
-var val = `Hi ${nameofuser}, OTP has been shared to the Registered Mobile Number. Please confirm the OTP.`
+var val = `OTP has been shared to the Registered Mobile Number. Please confirm the OTP.`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
