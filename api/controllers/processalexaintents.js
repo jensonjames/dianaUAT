@@ -175,9 +175,9 @@ var intentName =intentNamefuntion(input);
 
 
 
-            case 'GetCustAuthIntentnew':
-                console.log('Entered GetCustAuthIntent Execution Block');
-                handleGetCustAuthIntent(request, callback);
+            case 'statementIntent':
+                console.log('Entered statementIntent Execution Block');
+                handlestatementIntent(request, callback);
                 break;
 
         ///////////////
@@ -326,6 +326,38 @@ auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
 saveAudit(request,auditModel);
 resp.json(responeData);
+
+}
+
+
+function handlestatementIntent(request, resp,auditModel) {
+      console.log('Start handlestatementIntent');
+      console.log("request.body>>>>>>>>>",request.body);
+    //  var auditid = request.body.input.requestAttributes.auditid;
+console.log(`request ${auditid}`);
+transactions.find({drcif :123450}, function(err,data){
+	if(err){
+		var val = `HI This is err response from statement intent server`
+var responeData = {"callbackMessage": val};
+auditModel.responseData =responeData;
+console.log("auditModel>>",auditModel);
+saveAudit(request,auditModel);
+resp.json(responeData);
+
+	}else{
+		console.log(data);
+		var val = `HI This is response from statement intent server`
+var responeData = {"callbackMessage": val};
+auditModel.responseData =responeData;
+console.log("auditModel>>",auditModel);
+saveAudit(request,auditModel);
+resp.json(responeData);
+
+		
+	}
+})
+
+ 
 
 }
 
