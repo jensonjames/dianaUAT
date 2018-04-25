@@ -554,10 +554,10 @@ function saveAudit(request,auditModel){
   function handleGetCustAuthIntent(request, resp,auditModel) {
       console.log('Start handleGetCustAuthIntent');
 	  
-	  if (globalval.mode === 'T') {
-		   console.log('Entered transferRequest Execution Block');
-                handleconfirmtransferRequest(request, resp,auditModel);
-	  }else {
+//	  if (globalval.mode === 'T') {
+//		   console.log('Entered transferRequest Execution Block');
+//                handleconfirmtransferRequest(request, resp,auditModel);
+//	  }else {
 	  
       var cnt = 0;
       //var otpGen = request.body.input.sessionAttributes.otp;
@@ -697,7 +697,7 @@ console.log(typeof(otpGen));
       }
   }
 
-}
+//}
   /////////////
 
   function handleGetBalIntent(request, resp,auditModel) {
@@ -907,7 +907,7 @@ function handletransferRequest(request, resp,auditModel) {
                 saveAudit(request,auditModel);
 		       resp.json(responeData);
 				} else {
-					globalval.mode = 'T';
+					//globalval.mode = 'T';
 					
 				globalval.balanceamount = 	docs[0].AccoutBal - amount;
 				console.log(globalval.balanceamount);
