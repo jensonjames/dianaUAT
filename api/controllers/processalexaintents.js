@@ -871,7 +871,7 @@ function handletransferRequest(request, resp,auditModel) {
 				console.log(draccount);
 				      CustomerAccDetails.find({
           cifid:globalval.cifid,
-		  accounts:draccount
+		  accounttype:draccount
 		  
       }).then((docs) => {
               console.log('Data got fetched from the database' + docs.length);
@@ -900,6 +900,8 @@ function handletransferRequest(request, resp,auditModel) {
 		       resp.json(responeData);
 				} else {
 					
+				globalval.balanceamount = 	docs[0].AccoutBal - amount;
+				console.log(globalval.balanceamount);
 				var val = `Transfer of ${amount} from ${docs[0].accounttype}  account ending with ${draccount.substring(draccount.length - 4 , draccount.length)} to the beneficiary account ${benef} is initiated. Please CONFIRM to proceed`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
@@ -987,7 +989,7 @@ function handleconfirmtransferRequest(request, resp,auditModel) {
 			  }else{
 				  
 				
-				var val = `Transferred Successfully! `;
+			  var val = `Transferred Successfully! The balance in the account is ${globalval.balanceamount}`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
