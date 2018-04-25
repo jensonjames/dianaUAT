@@ -2,6 +2,8 @@
 
 const date = new Date().getHours();
 const todate = new Date();
+const month = todate.getUTCMonth() + 1; //months from 1-12
+const day = todate.getUTCDate();
 var random = require('random-number-generator')
 
 
@@ -360,7 +362,7 @@ resp.json(responeData);
 //`
 var len = data.length;
 
-var val = `${todate}, Transferred  ${data[7].amount} from ${data[7].draccount} account to ${data[7].craccount}`
+var val = `${day} - ${month}, Transferred  ${data[7].amount} from ${data[7].draccount} account to ${data[7].craccount}`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
