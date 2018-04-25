@@ -332,11 +332,15 @@ resp.json(responeData);
 
 function handlestatementIntent(request, resp,auditModel) {
       console.log('Start handlestatementIntent');
-      console.log("request.body>>>>>>>>>",request.body);
+		console.log("request.body>>>>>>>>>",request.body);
     //  var auditid = request.body.input.requestAttributes.auditid;
-console.log(`request ${auditid}`);
-transactions.find({drcif :123450}, function(err,data){
+//console.log(`request ${auditid}`);
+transactions.find(
+{drcif :123450},
+ function(err,data){
+	 console.log('in for statement');
 	if(err){
+		console.log('in for err statement');
 		var val = `HI This is err response from statement intent server`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
@@ -345,6 +349,7 @@ saveAudit(request,auditModel);
 resp.json(responeData);
 
 	}else{
+		console.log('in for succ statement');
 		console.log(data);
 		var val = `HI This is response from statement intent server`
 var responeData = {"callbackMessage": val};
