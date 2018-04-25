@@ -273,7 +273,7 @@ console.log("request>>>>>");
 
                 ///////////
                 console.log("Inside else block");
-               var val = `Hi ${request.body.input.session.attributes.nameofuser} ,${msg1} I am here to help you on your Accounts services and other Banking information from ABC Bank Choose Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions.`
+               var val = `Hi ${request.body.input.session.attributes.nameofuser} ,${msg1} I am here to help you on your Accounts services and other Banking information from ABC Bank, Which services do you want me to assisst with? Please choose the option of Balance for knowing your balance, transfers for initiating a transfer or statement for knowing last 5 transactions. Exit to end the conversation`
 //				var val = {
 //    "outputSpeech": {"type":"PlainText","text":"Text to speak back to the user."},
 //    "card": {
