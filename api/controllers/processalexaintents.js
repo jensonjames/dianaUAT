@@ -972,7 +972,7 @@ function handletransferRequest(request, resp,auditModel) {
 				globalval.balanceamount = 	docs[0].AccoutBal - amount;
 				console.log(globalval.balanceamount);
 				//ending with ${draccount.substring(draccount.length - 4 , draccount.length)} 
-				var val = `Transfer of ${amount} INR from ${docs[0].accounttype}  account to the beneficiary name ${benef} is initiated. OTP has been sent to your registered mobile number. Please say the OTP as “OTP *OTP 6 digit number*”`;
+				var val = `Transfer of ${amount} INR from ${docs[0].accounttype}  account to the beneficiary name ${benef} is initiated. One Time Pin has been sent to your registered mobile number. Please say the Pin number as Pin Received followed by the number`;
                 var responeData = {"callbackMessage": val};
                 auditModel.responseData =responeData;
                 console.log("auditModel>>",auditModel);
