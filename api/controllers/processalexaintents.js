@@ -1546,7 +1546,7 @@ resp.json(responeData);
                   //               console.log("updated successfully");
 ///////////////
 console.log("Inside e block");
-var val = `OTP has been shared to the Registered Mobile Number. Please confirm the OTP.`
+var val = `One time pin has been shared to the Registered Mobile Number. Please confirm the One time pin as one time pin is followed by the number.`
 var responeData = {"callbackMessage": val};
 auditModel.responseData =responeData;
 console.log("auditModel>>",auditModel);
